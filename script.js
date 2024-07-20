@@ -1,4 +1,3 @@
-
 document.addEventListener("DOMContentLoaded", (event) => {
 
     const setBtn = document.getElementById("setBtn");
@@ -7,27 +6,33 @@ document.addEventListener("DOMContentLoaded", (event) => {
     const userMinutes = document.getElementById("Minutes");
     const userSeconds = document.getElementById("Seconds");
 
+    // Set up event listeners for user input
     userHours.addEventListener("input", () => {
         sessionStorage.setItem("hours", userHours.value);
     });
 
     userMinutes.addEventListener("input", () => {
-        sessionStorage.setItem("minutes", uaserMinutes.value);
+        sessionStorage.setItem("minutes", userMinutes.value);
     });
 
     userSeconds.addEventListener("input", () => {
         sessionStorage.setItem("seconds", userSeconds.value);
     });
+
+    // Set up event listener for "Set" button
     setBtn.addEventListener("click", () => {
         setTimer();
     });
 
+    // Create a new timer element and set its innerHTML to display the time left
     function setTimer() {
+
         let hours = userHours.value || 0;
         let minutes = userMinutes.value || 0;
         let seconds = userSeconds.value || 0;
 
         if (parseInt(hours) > 0 || parseInt(minutes) > 0 || parseInt(seconds) > 0) {
+
             let newTimer = document.createElement("div");
             newTimer.classList.add("timer");
 
@@ -44,12 +49,14 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
             container.appendChild(newTimer);
 
+            // Set up event listener for "Stop" button
             let stopBtn = newTimer.querySelector(".stopBtn");
             stopBtn.addEventListener("click", (event) => {
                 newTimer.innerHTML = `<p class="timeOutText">Time is Up!</p>
                                   <button class="btn deleteBtn">Delete</button>`;
                 newTimer.classList.add("newTimer");
 
+                // Set up event listener for "Delete" button
                 let deleteBtn = newTimer.querySelector(".deleteBtn");
                 deleteBtn.addEventListener("click", (event) => {
                     newTimer.remove();
@@ -60,6 +67,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
             minutes = parseInt(minutes);
             seconds = parseInt(seconds);
 
+            // Set up interval to decrement the time every second
             let counter = setInterval(() => {
 
                 if (seconds > 0) {
